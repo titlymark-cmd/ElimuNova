@@ -129,7 +129,7 @@ def pay_invoice(invoice_id):
         message, status = _provider_failure(e)
         return err(message, status)
     attempt.provider_charge_id = str(charge["id"])
-    attempt.provider_status = charge["status"] if isinstance(charge["status"], str) else None
+    attempt.provider_status = charge["status"][:30] if isinstance(charge["status"], str) else None
     attempt.status = "pending"
     audit("billing.pay_started", "invoice", inv.id, {"attempt_id": attempt.id})
     db.session.commit()

@@ -57,7 +57,8 @@ class TestConfig(Config):
     BCRYPT_LOG_ROUNDS = 4
     SECRET_KEY = "test"
     JWT_SECRET_KEY = "test-jwt-secret-key-at-least-32-bytes-long"
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    # Set TEST_DATABASE_URL (a throwaway PostgreSQL database) to run the whole suite against PostgreSQL instead of SQLite.
+    SQLALCHEMY_DATABASE_URI = normalize_database_url(os.environ.get("TEST_DATABASE_URL")) or "sqlite:///:memory:"
     SQLALCHEMY_ENGINE_OPTIONS = {}
     GEMINI_API_KEY = None
     CYZORA_SECRET_KEY = None

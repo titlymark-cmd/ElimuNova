@@ -73,7 +73,7 @@ def apply_charge_result(attempt, charge):
     if attempt.status == "succeeded":
         return "already_succeeded"
     status = charge["status"]
-    attempt.provider_status = status if isinstance(status, str) else None
+    attempt.provider_status = status[:30] if isinstance(status, str) else None
     if status == "succeeded":
         if charge["amount_cents"] is None or charge["amount_cents"] != attempt.amount_cents:
             attempt.status = "amount_mismatch"

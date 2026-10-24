@@ -13,7 +13,7 @@ class AssessmentResult(db.Model):
     assessment_year = db.Column(db.Integer, nullable=False)
     candidate_number = db.Column(db.String(30))
     subjects = db.Column(db.JSON, nullable=False, default=list)  # [{"subject": "...", "result": "..."}]
-    status = db.Column(db.String(30), default="draft", nullable=False, index=True)
+    status = db.Column(db.String(40), default="draft", nullable=False, index=True)
     review_note = db.Column(db.Text)  # reason shown to the student (corrections, rejection, failure)
     verification_basis = db.Column(db.String(200))  # what the reviewer checked it against
     submitted_at = db.Column(db.DateTime)
@@ -33,8 +33,8 @@ class AssessmentResultEvent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     result_id = db.Column(db.Integer, db.ForeignKey("assessment_results.id"), nullable=False, index=True)
     school_id = db.Column(db.Integer, db.ForeignKey("schools.id"), nullable=False, index=True)
-    from_status = db.Column(db.String(30))
-    to_status = db.Column(db.String(30), nullable=False)
+    from_status = db.Column(db.String(40))
+    to_status = db.Column(db.String(40), nullable=False)
     actor_user_id = db.Column(db.Integer, db.ForeignKey("users.id"))  # NULL = the system
     actor_role = db.Column(db.String(30))
     note = db.Column(db.Text)
@@ -48,8 +48,8 @@ class DocumentEvent(db.Model):
     document_id = db.Column(db.Integer, db.ForeignKey("application_documents.id"), nullable=False, index=True)
     school_id = db.Column(db.Integer, db.ForeignKey("schools.id"), nullable=False, index=True)
     action = db.Column(db.String(30), nullable=False)  # uploaded|automated_checks|approve|request_correction|reject|escalate|note
-    from_status = db.Column(db.String(30))
-    to_status = db.Column(db.String(30))
+    from_status = db.Column(db.String(40))
+    to_status = db.Column(db.String(40))
     actor_user_id = db.Column(db.Integer, db.ForeignKey("users.id"))  # NULL = the system
     actor_role = db.Column(db.String(30))
     note = db.Column(db.Text)

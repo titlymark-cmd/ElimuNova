@@ -139,7 +139,7 @@ class ApplicationDocument(db.Model):
     content_type = db.Column(db.String(60))
     size_bytes = db.Column(db.Integer)
     sha256 = db.Column(db.String(64), index=True)
-    status = db.Column(db.String(30), default="uploaded", server_default="uploaded", nullable=False, index=True)
+    status = db.Column(db.String(40), default="uploaded", server_default="uploaded", nullable=False, index=True)
     version = db.Column(db.Integer, default=1, server_default="1", nullable=False)
     supersedes_id = db.Column(db.Integer, db.ForeignKey("application_documents.id"))
     uploaded_by = db.Column(db.Integer, db.ForeignKey("users.id"))
