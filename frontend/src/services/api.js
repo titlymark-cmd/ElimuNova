@@ -3,6 +3,13 @@ const BASE = (process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1').r
 export const API_BASE = BASE;
 const TOKEN_KEY = 'elimupro_token'; // only the auth token is kept client-side; all data lives in the database
 
+// Names the address the app is calling, so a wrong or missing REACT_APP_API_URL is obvious on screen.
+function unreachableHint() {
+  const onLocalhost = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
+  if (!process.env.REACT_APP_API_URL && !onLocalhost) return 'REACT_APP_API_URL is not set for this site';
+  try { return new URL(BASE).host; } catch (e) { return BASE; }
+}
+
 export class ApiError extends Error {
   constructor(message, status, errors) {
     super(message);
@@ -26,7 +33,7 @@ async function request(path, { method = 'GET', body } = {}) {
   try {
     res = await fetch(`${BASE}${path}`, { method, headers, body: body ? (isForm ? body : JSON.stringify(body)) : undefined });
   } catch (e) {
-    throw new ApiError('Cannot reach the server. Check your internet connection and try again.', 0);
+    throw new ApiError(`Cannot reach the server (${unreachableHint()}). Check your internet connection and try again.`, 0);
   }
   let json = null;
   try { json = await res.json(); } catch (e) { /* non-JSON error */ }
