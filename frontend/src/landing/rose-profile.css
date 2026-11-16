@@ -1,0 +1,52 @@
+.rose-profile {
+  padding: 90px 24px;
+  background: #f8f7f3;
+  text-align: center;
+}
+
+.rose-profile-content {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.rose-eyebrow {
+  color: #b28a42;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.rose-profile h2 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 14px 0;
+  color: #171717;
+}
+
+.rose-profile p {
+  max-width: 680px;
+  margin: 0 auto 32px;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.rose-image-wrap {
+  max-width: 420px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.13);
+}
+
+.rose-image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .rose-profile {
+    padding: 65px 18px;
+  }
+}
